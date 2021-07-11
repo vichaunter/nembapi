@@ -74,8 +74,16 @@ models/exampleModel.ts
 routers/exampleRouter.ts 
 ```
 
-> TODO: is planned in future to make that base with crud from terminal with a simple command.
-
 Once you have them copied, just add the import and usage into `/router.ts`, for example: `app.use('/product', productRouter)`
 
+## Roadmap
 
+For next updates the plan is implement:
+
+- Add Model/Routes/Controllers crud terminal generator
+- Add docker development instance
+- Add docker builder
+
+## License
+
+Read license content in [LICENSE.md](https://github.com/vichaunter/nembapi/blob/main/LICENSE.md) file
