@@ -78,4 +78,6 @@ routers/exampleRouter.ts
 
 Once you have them copied, just add the import and usage into `/router.ts`, for example: `app.use('/product', productRouter)`
 
+## License
 
+Read license content in [LICENSE.md](https://github.com/vichaunter/nembapi/blob/main/LICENSE.md) file
