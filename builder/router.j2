@@ -1,0 +1,23 @@
+import {Router} from "express";
+import {{model.lc}}Controller from "../controllers/{{model.lc}}Controller";
+import routerAuthenticatedMiddleware from "../middlewares/routerAuthenticatedMiddleware";
+
+const {view, update, list, remove, create} = {{model.lc}}Controller
+const {{model.lc}}Router = Router()
+
+// [url]/{{model.lc}}
+{{model.lc}}Router.route("/").get(list)
+
+// [url]/{{model.lc}}/1
+{{model.lc}}Router.get("/:id", view)
+
+// [url]/{{model.lc}}
+{{model.lc}}Router.route("/").get(routerAuthenticatedMiddleware, create)
+
+// [url]/{{model.lc}}/1
+{{model.lc}}Router.route("/:id").put(routerAuthenticatedMiddleware, update)
+
+// [url]/{{model.lc}}/1
+{{model.lc}}Router.route("/:id").delete(routerAuthenticatedMiddleware, remove)
+
+export default {{model.lc}}Router

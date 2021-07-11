@@ -1,0 +1,132 @@
+import {{model.uc}}Model, {I{{model.uc}}} from '../models/{{model.lc}}Model';
+import {Request, Response} from "express";
+import {CallbackError} from 'mongoose'
+import ICrudController from "../interfaces/controllers/ICrudController";
+
+export interface I{{model.uc}}Controller extends ICrudController{}
+
+/**
+ * {{model.lc}}Controller.list()
+ */
+const list = (req: Request, res: Response) => {
+    {{model.uc}}Model.find((err: CallbackError, docs: I{{model.uc}}[]) => {
+        if (err) {
+            return res.status(500).json({
+                message: 'Error when getting {{model.lc}} list.',
+                error: err
+            });
+        }
+
+        return res.json(docs);
+    });
+}
+
+/**
+ * {{model.lc}}Controller.view()
+ */
+const view = (req: Request, res: Response) => {
+    const id = req.params.id;
+
+    {{model.uc}}Model.findOne({_id: id}, (err: CallbackError, doc: I{{model.uc}}) => {
+        if (err) {
+            return res.status(500).json({
+                message: 'Error when getting {{model.lc}} view.',
+                error: err
+            });
+        }
+
+        if (!doc) {
+            return res.status(404).json({
+                message: 'No such {{model.lc}}'
+            });
+        }
+
+        return res.json(doc);
+    });
+}
+
+/**
+ * {{model.lc}}Controller.create()
+ */
+const create = (req: Request, res: Response) => {
+    const {name, year} = req.body
+    const doc = new {{model.uc}}Model({
+        name,
+        year
+    });
+
+    doc.save((err: CallbackError, doc: I{{model.uc}}) => {
+        if (err) {
+            return res.status(500).json({
+                message: 'Error when creating {{model.lc}}',
+                error: err
+            });
+        }
+
+        return res.status(201).json(doc);
+    });
+}
+
+/**
+ * {{model.lc}}Controller.update()
+ */
+const update = (req: Request, res: Response) => {
+    const id = req.params.id;
+
+    {{model.uc}}Model.findOne({_id: id}, (err: CallbackError, doc: I{{model.uc}}) => {
+        if (err) {
+            return res.status(500).json({
+                message: 'Error when getting {{model.lc}}',
+                error: err
+            });
+
+        }
+        if (!doc) {
+            return res.status(404).json({
+                message: 'No such item'
+            });
+        }
+
+        {% for item in schema %}
+        doc.{{item.value}} = req.body.{{item.value}} ? req.body.{{item.value}} : doc.{{item.value}};
+        {% endfor %}
+
+        doc.save((err, {{model.lc}}: I{{model.uc}}) => {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when updating {{model.lc}}.',
+                    error: err
+                });
+            }
+
+            return res.json({{model.lc}});
+        });
+    });
+}
+
+/**
+ * {{model.lc}}Controller.remove()
+ */
+const remove = (req: Request, res: Response) => {
+    const id = req.params.id;
+
+    {{model.uc}}Model.findByIdAndRemove(id, {}, (err: CallbackError) => {
+        if (err) {
+            return res.status(500).json({
+                message: 'Error when deleting the {{model.lc}}.',
+                error: err
+            });
+        }
+
+        return res.status(204).json();
+    })
+}
+
+const {{model.lc}}Controller: I{{model.uc}}Controller = {
+    list,
+    view,
+    update,
+    create,
+    remove
+}
+export default {{model.lc}}Controller

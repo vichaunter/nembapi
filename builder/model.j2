@@ -1,0 +1,15 @@
+import { Document, Schema, model } from 'mongoose';
+
+export interface I{{model.uc}} extends Document {   {% for item in schema %}
+      {{item.value}}:  {{item.type}},   {% endfor %}
+}
+
+const schema = new Schema<I{{model.uc}}>({    {% for item in schema %}
+      '{{item.value}}' : {
+      	    type: {{item.type}},{% if item.default %}
+      	    default: '{{item.default}}',{% endif %}{% if item.required %}
+      	    required: {{item.required}},{% endif %}
+      	},    {% endfor %}
+});
+
+export default model<I{{model.uc}}>('{{model.lc}}', schema);
