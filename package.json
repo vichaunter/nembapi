@@ -1,0 +1,35 @@
+{
+  "name": "nembapi",
+  "version": "1.0.0",
+  "description": "Node + Express + Mongoose Boilerplate API",
+  "main": "dist/server.js",
+  "repository": "https://github.com/vichaunter/nembapi",
+  "author": "VicHaunter",
+  "license": "MIT",
+  "scripts": {
+    "start": "concurrently \"yarn run tsc:watch\" \"yarn run start:watch\" \"yarn copy:config\"",
+    "start:watch": "nodemon dist/server.js --ignore tmp/* --ignore docker/*",
+    "copy:config": "cp ./.env ./dist/.env",
+    "tsc": "tsc",
+    "tsc:watch": "tsc -w",
+    "docker:start": "docker-compose up",
+    "docker:attach:db": "docker-compose exec database bash"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.30.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.2",
+    "randomstring": "^1.2.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/mongoose": "^5.11.97",
+    "@types/randomstring": "^1.1.7"
+  }
+}
