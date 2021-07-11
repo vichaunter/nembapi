@@ -66,21 +66,40 @@ of code, this way you have real time refresh.
 
 ## Creating new models
 
-For the moment you should make a copy of this three files and give your own names:
+There is a terminal client that you can use to generate Model/Routes/Controllers base crud.
+
+You only need to run `yarn generate`, and it will ask you for some details, ex:
+```
+Model name: car
+
+Schema:
+    Value name: width
+    Value type: Number
+    Value default: 0
+    Is required: n
+```
+
+You can give to the generator as many schema values as you need, when you want to stop giving values and generate the
+files, just leave the next value empty and hit `enter`.
+
+After files are generated will be placed in:
 
 ```
-controllers/exampleController.ts, 
-models/exampleModel.ts
-routers/exampleRouter.ts 
+src/controllers/exampleController.ts, 
+src/models/exampleModel.ts
+src/routers/exampleRouter.ts 
 ```
 
-Once you have them copied, just add the import and usage into `/router.ts`, for example: `app.use('/product', productRouter)`
+Have in mind that the generator will check if the files already exists, in such case it will skip it so will not be
+overriden. That means that is secure to have for example the CarModel.ts already created, and generate controller and
+routes if any of it are missing.
+
+Once you have them generated, just add the import and usage into `src/router.ts`, for example: `app.use('/product', productRouter)`
 
 ## Roadmap
 
 For next updates the plan is implement:
 
-- Add Model/Routes/Controllers crud terminal generator
 - Add docker development instance
 - Add docker builder
 
